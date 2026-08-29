@@ -15,7 +15,6 @@ erDiagram
 	Pet ||--o{ Clients : Owner
 	Medical_records }o--|| Pet : Treated_animal
 	Recipt }o--|| Medical_records : Medical_treatment_recipt
-	Medical_records }o--|| veterinary : references
 	Medicine_records ||--o{ Medical_records : Medication_Dispensing_Treatment Record
 
 	Profile {
