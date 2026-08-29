@@ -3,78 +3,7 @@
 
 <img width="1917" height="1025" alt="Screenshot 2026-08-29 151715" src="https://github.com/user-attachments/assets/4fcdb31a-691f-4bc1-9e27-6d7cd7934a6c" />
 
-```mermaid
-erDiagram
-	PhoneNumbers }o--|| Profile : references
-	Clients ||--|| Profile : references
-	veterinary ||--|| Profile : references
-	veterinary_abilities }o--|| veterinary : references
-	veterinary_abilities ||--o{ Ability : references
-	Pet ||--o{ Clients : references
-	Medical_records }o--|| Pet : references
-	Recipt }o--|| Medical_records : references
-	Medical_records }o--|| veterinary : references
-	Medicine_records ||--o{ Medical_records : references
-	Profile {
-		SERIAL id
-		VARCHAR(60) name
-		VARCHAR(13) citizenID
-		VARCHAR(255) addreass
-		VARCHAR(255) distrist
-		VARCHAR(255) subdistrist
-		VARCHAR(255) province
-		VARCHAR(5) postalcode
-	}
-	PhoneNumbers {
-		SERIAL id
-		INTEGER profileID
-		VARCHAR(11) phoneNumber
-	}
-	Pet {
-		SERIAL id
-		INTEGER OwnerID
-		VARCHAR(255) species
-		VARCHAR(255) name
-		DATE birthday
-	}
-	Clients {
-		SERIAL id
-		SERIAL profileID
-	}
-	veterinary {
-		SERIAL id
-		INTEGER profileID
-	}
-	veterinary_abilities {
-		SERIAL id
-		INTEGER vetID
-		INTEGER abilityID
-	}
-	Ability {
-		SERIAL id
-		VARCHAR(255) name
-	}
-	Medical_records {
-		SERIAL id
-		INTEGER petID
-		INTEGER vetID
-		TIMESTAMP created_at
-	}
-	Recipt {
-		SERIAL id
-		INTEGER medical_record_id
-		TIMESTAMP created_at
-	}
-	Medicine_records {
-		SERIAL id
-		INTEGER medical_record_id
-		VARCHAR(150) name
-		NUMERIC unit_price
-		INTEGER amount_given
-		VARCHAR(100) dosage_instruction
-		DATE given_at
-		INTEGER duration_days
-	}
+
 # ตารางจำแนกแอตทริบิวต์ — ใจดีคลินิกรักษาสัตว์ (1.0)
 
 ## Profile
