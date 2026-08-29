@@ -1,0 +1,110 @@
+CREATE TABLE IF NOT EXISTS "Profile" (
+	"id" SERIAL NOT NULL,
+	"name" VARCHAR(60) NOT NULL,
+	"citizenID" VARCHAR(13) NOT NULL,
+	"addreass" VARCHAR(255) NOT NULL,
+	"distrist" VARCHAR(255) NOT NULL,
+	"subdistrist" VARCHAR(255) NOT NULL,
+	"province" VARCHAR(255) NOT NULL,
+	"postalcode" VARCHAR(5) NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "PhoneNumbers" (
+	"id" SERIAL NOT NULL,
+	"profileID" INTEGER NOT NULL,
+	"phoneNumber" VARCHAR(11) NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Pet" (
+	"id" SERIAL NOT NULL,
+	"OwnerID" INTEGER NOT NULL,
+	"species" VARCHAR(255) NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	"birthday" DATE NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Clients" (
+	"id" SERIAL NOT NULL,
+	"profileID" SERIAL NOT NULL UNIQUE,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS " veterinary" (
+	"id" SERIAL NOT NULL,
+	"profileID" INTEGER NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS " veterinary_abilities" (
+	"id" SERIAL NOT NULL,
+	"vetID" INTEGER,
+	"abilityID" INTEGER,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Ability" (
+	"id" SERIAL NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Medical_records" (
+	"id" SERIAL NOT NULL,
+	"petID" INTEGER NOT NULL,
+	"vetID" INTEGER NOT NULL,
+	"created_at" TIMESTAMP NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Recipt" (
+	"id" SERIAL NOT NULL,
+	"medical_record_id" INTEGER NOT NULL,
+	"created_at" TIMESTAMP NOT NULL,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Medicine_records" (
+	"id" SERIAL NOT NULL,
+	"medical_record_id" INTEGER NOT NULL,
+	"name" VARCHAR(150) NOT NULL,
+	"unit_price" NUMERIC NOT NULL,
+	"amount_given" INTEGER NOT NULL,
+	"dosage_instruction" VARCHAR(100) NOT NULL,
+	"given_at" DATE NOT NULL,
+	"duration_days" INTEGER NOT NULL,
+	PRIMARY KEY("id")
+);
+
+ALTER TABLE "PhoneNumbers"
+ADD FOREIGN KEY("profileID") REFERENCES "Profile"("id")
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE "Clients"
+ADD FOREIGN KEY("profileID") REFERENCES "Profile"("id")
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE " veterinary"
+ADD FOREIGN KEY("profileID") REFERENCES "Profile"("id")
+ON UPDATE NO ACTION ON DELETE CASCADE;
+ALTER TABLE " veterinary_abilities"
+ADD FOREIGN KEY("vetID") REFERENCES " veterinary"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE " veterinary_abilities"
+ADD FOREIGN KEY("abilityID") REFERENCES "Ability"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "Pet"
+ADD FOREIGN KEY("OwnerID") REFERENCES "Clients"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "Medical_records"
+ADD FOREIGN KEY("petID") REFERENCES "Pet"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "Recipt"
+ADD FOREIGN KEY("medical_record_id") REFERENCES "Medical_records"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "Medical_records"
+ADD FOREIGN KEY("vetID") REFERENCES " veterinary"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "Medicine_records"
+ADD FOREIGN KEY("medical_record_id") REFERENCES "Medical_records"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;

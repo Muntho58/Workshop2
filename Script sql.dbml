@@ -1,0 +1,109 @@
+Table Profile [headercolor: #91fc32] {
+	id serial [ pk, not null ]
+	name varchar(60) [ not null ]
+	citizenID varchar(13) [ not null ]
+	addreass varchar(255) [ not null ]
+	distrist varchar(255) [ not null ]
+	subdistrist varchar(255) [ not null ]
+	province varchar(255) [ not null ]
+	postalcode varchar(5) [ not null ]
+}
+
+Table PhoneNumbers [headercolor: #81c44b] {
+	id serial [ pk, not null ]
+	profileID integer [ not null ]
+	phoneNumber varchar(11) [ not null ]
+}
+
+Table Pet [headercolor: #322bc2] {
+	id serial [ pk, not null ]
+	OwnerID integer [ not null ]
+	species varchar(255) [ not null ]
+	name varchar(255) [ not null ]
+	birthday date [ not null ]
+}
+
+Table Clients [headercolor: #e60000] {
+	id serial [ pk, not null ]
+	profileID serial [ not null, unique ]
+}
+
+Table " veterinary" [headercolor: #6fd1f7] {
+	id serial [ pk, not null ]
+	profileID integer [ not null ]
+}
+
+Table " veterinary_abilities" [headercolor: #0893c9] {
+	id serial [ pk, not null ]
+	vetID integer
+	abilityID integer
+}
+
+Table Ability [headercolor: #175e7a] {
+	id serial [ pk, not null ]
+	name varchar(255) [ not null ]
+}
+
+Table Medical_records [headercolor: #e61ee6] {
+	id serial [ pk, not null ]
+	petID integer [ not null ]
+	vetID integer [ not null ]
+	created_at timestamp [ not null ]
+}
+
+Table Recipt [headercolor: #dfe630] {
+	id serial [ pk, not null ]
+	medical_record_id integer [ not null ]
+	created_at timestamp [ not null ]
+}
+
+Table Medicine_records [headercolor: #175e7a] {
+	id serial [ pk, not null ]
+	medical_record_id integer [ not null ]
+	name varchar(150) [ not null ]
+	unit_price numeric [ not null ]
+	amount_given integer [ not null ]
+	dosage_instruction varchar(100) [ not null ]
+	given_at date [ not null ]
+	duration_days integer [ not null ]
+}
+
+Ref Profile_Number {
+	PhoneNumbers.profileID > Profile.id [ delete: cascade, update: no action ]
+}
+
+Ref Profile_Client {
+	Clients.profileID - Profile.id [ delete: cascade, update: no action ]
+}
+
+Ref " veterinary_profile" {
+	" veterinary".profileID - Profile.id [ delete: cascade, update: no action ]
+}
+
+Ref Doctor_anility {
+	" veterinary_abilities".vetID > " veterinary".id [ delete: no action, update: no action ]
+}
+
+Ref Ability_doctor {
+	" veterinary_abilities".abilityID < Ability.id [ delete: no action, update: no action ]
+}
+
+Ref Owner {
+	Pet.OwnerID < Clients.id [ delete: no action, update: no action ]
+}
+
+Ref "Treated animals" {
+	Medical_records.petID > Pet.id [ delete: no action, update: no action ]
+}
+
+Ref "Medical treatment receipt" {
+	Recipt.medical_record_id > Medical_records.id [ delete: no action, update: no action ]
+}
+
+Ref "The attending physician" {
+	Medical_records.vetID > " veterinary".id [ delete: no action, update: no action ]
+}
+
+Ref "Medication Dispensing & Treatment Record" {
+	Medicine_records.medical_record_id < Medical_records.id [ delete: no action, update: no action ]
+}
