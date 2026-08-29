@@ -15,7 +15,7 @@ erDiagram
 	Pet ||--o{ Clients : Owner
 	Medical_records }o--|| Pet : Treated_animal
 	Recipt }o--|| Medical_records : Medical_treatment_recipt
-	Medicine_records ||--o{ Medical_records : Medication_Dispensing_Treatment Record
+	Medicine_records ||--o{ Medical_records : Medication_Dispensing_Treatment_Record
 
 	Profile {
 		SERIAL id
