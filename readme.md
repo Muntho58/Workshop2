@@ -3,6 +3,7 @@
 
 <img width="1917" height="1025" alt="Screenshot 2026-08-29 151715" src="https://github.com/user-attachments/assets/4fcdb31a-691f-4bc1-9e27-6d7cd7934a6c" />
 
+```mermaid
 erDiagram
 	PhoneNumbers }o--|| Profile : references
 	Clients ||--|| Profile : references
