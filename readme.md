@@ -16,7 +16,7 @@ erDiagram
 	Medical_records }o--|| Pet : Treated animal
 	Recipt }o--|| Medical_records : Medical treatment recipt
 	Medical_records }o--|| veterinary : references
-	Medicine_records ||--o{ Medical_records : Medication Dispensing & Treatment Record
+	Medicine_records ||--o{ Medical_records : Medication_Dispensing_Treatment Record
 
 	Profile {
 		SERIAL id
