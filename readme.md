@@ -7,16 +7,16 @@
 
 ```mermaid
 erDiagram
-	PhoneNumbers }o--|| Profile : references
-	Clients ||--|| Profile : references
-	veterinary ||--|| Profile : references
-	veterinary_abilities }o--|| veterinary : references
-	veterinary_abilities ||--o{ Ability : references
-	Pet ||--o{ Clients : references
-	Medical_records }o--|| Pet : references
-	Recipt }o--|| Medical_records : references
+	PhoneNumbers }o--|| Profile : Progile_Number
+	Clients ||--|| Profile : Profile_Client
+	veterinary ||--|| Profile : Vet_Ptofile
+	veterinary_abilities }o--|| veterinary : Ability_Vet
+	veterinary_abilities ||--o{ Ability : Vet_ability
+	Pet ||--o{ Clients : Owner
+	Medical_records }o--|| Pet : Treated animal
+	Recipt }o--|| Medical_records : Medical treatment recipt
 	Medical_records }o--|| veterinary : references
-	Medicine_records ||--o{ Medical_records : references
+	Medicine_records ||--o{ Medical_records : Medication Dispensing & Treatment Record
 
 	Profile {
 		SERIAL id
